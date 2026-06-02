@@ -1,0 +1,76 @@
+---
+import { siteConfig } from '../config/site';
+
+const capabilityTags = ['Web apps', 'AI workflows', 'BI dashboards', 'Internal tools'];
+---
+
+<section class="flex items-center pt-28 pb-12 px-4 relative overflow-hidden">
+
+  <div class="absolute inset-0 bg-grid-fine bg-grid-fine opacity-100 pointer-events-none" aria-hidden="true"></div>
+
+  <div
+    class="absolute -top-32 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
+    style="background: radial-gradient(circle at 70% 30%, rgba(0,119,168,0.06) 0%, transparent 65%);"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto w-full">
+    <div class="grid grid-cols-1 items-center">
+
+      <div class="space-y-8" data-reveal>
+
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white ring-1 ring-black/[0.07] shadow-soft-xs text-[10px] uppercase tracking-[0.18em] font-medium text-brand-muted">
+          <span class="relative flex h-1.5 w-1.5">
+            <span class="animate-pulse-dot absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400"></span>
+          </span>
+          Available for new projects
+        </div>
+
+        <div>
+          <h1 class="font-heading font-bold leading-[0.95] tracking-[-0.04em] text-brand-heading"
+              style="font-size: clamp(3rem, 7vw, 6rem);">
+            We build the<br />
+            systems behind<br />
+            <span class="text-brand-accent">smarter work.</span>
+          </h1>
+        </div>
+
+        <p class="text-lg text-brand-text leading-relaxed max-w-[54ch]">
+          Adiban Digital is a Phuket-based IT company building dashboards, AI automation,
+          internal tools, and conversion-focused websites for growing businesses.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            href="/contact"
+            class="group inline-flex items-center gap-1 pl-5 pr-1.5 py-2 rounded-full bg-brand-heading text-white font-medium text-sm hover:bg-brand-accent transition-all duration-600 ease-spring shadow-soft-md hover:shadow-accent-glow active:scale-[0.97]"
+          >
+            Book Free Consultation
+            <span class="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center ml-1 transition-all duration-300 ease-spring group-hover:bg-white/20 group-hover:translate-x-0.5 group-hover:-translate-y-[1px]">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+
+          <a
+            href="/services"
+            class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white text-brand-heading font-medium text-sm ring-1 ring-black/[0.08] shadow-soft-xs hover:shadow-soft-md hover:ring-black/[0.14] transition-all duration-500 ease-spring active:scale-[0.97]"
+          >
+            View Services
+          </a>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 pt-1">
+          {capabilityTags.map((tag) => (
+            <span class="px-3 py-1 rounded-full bg-white ring-1 ring-black/[0.07] shadow-soft-xs text-xs font-medium text-brand-muted">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  category: string;
+  readTime: string;
+  slug: string;
+  featured?: boolean;
+}
+const { title, description, pubDate, category, readTime, slug, featured = false } = Astro.props;
+const formattedDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(pubDate);
+---
+
+<!-- Double-bezel card -->
+<a
+  href={`/blog/${slug}`}
+  class="group block p-[3px] rounded-squircle bg-black/[0.03] ring-1 ring-black/[0.07] hover:ring-black/[0.12] hover:shadow-soft-lg transition-all duration-600 ease-spring hover:-translate-y-1"
+>
+  <div class="bg-white rounded-squircle-in shadow-inner-highlight overflow-hidden flex flex-col h-full">
+
+    <!-- Top bar -->
+    <div class:list={['w-full bg-brand-surface2 relative overflow-hidden flex items-end px-6', featured ? 'h-48' : 'h-28']}>
+      <div class="absolute inset-0 bg-grid-fine bg-grid-fine opacity-80" aria-hidden="true"></div>
+      <span class="relative z-10 inline-flex items-center px-2.5 py-1 rounded-full bg-white/90 ring-1 ring-black/[0.07] text-[11px] font-medium text-brand-accent backdrop-blur-sm mb-5">
+        {category}
+      </span>
+    </div>
+
+    <!-- Content -->
+    <div class="flex flex-col flex-1 p-6 gap-3">
+      <h3 class:list={[
+        'font-heading font-semibold text-brand-heading tracking-tight leading-snug group-hover:text-brand-accent transition-colors duration-300',
+        featured ? 'text-xl' : 'text-base',
+      ]}>
+        {title}
+      </h3>
+      <p class="text-brand-text text-sm leading-relaxed flex-1 line-clamp-3">{description}</p>
+      <div class="flex items-center justify-between pt-4 border-t border-brand-border/60 mt-auto">
+        <span class="text-xs text-brand-muted">{formattedDate}</span>
+        <span class="text-xs text-brand-muted">{readTime}</span>
+      </div>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,42 @@
+---
+interface Props {
+  number: string;
+  name: string;
+  description: string;
+  tags?: string[];
+  icon?: string;
+  href?: string;
+}
+const { number, name, description, tags = [], href = '/services' } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group grid grid-cols-[auto_1fr_auto] gap-5 lg:gap-8 items-start py-7 px-5 -mx-5 rounded-squircle-in hover:bg-white hover:shadow-soft-md transition-all duration-500 ease-spring border border-transparent hover:border-black/[0.06]"
+>
+  <span class="font-mono text-[11px] text-brand-muted pt-0.5 tabular-nums select-none w-5 text-right">
+    {number}
+  </span>
+
+  <div class="space-y-2">
+    <h3 class="font-heading font-semibold text-brand-heading text-base lg:text-[1.05rem] tracking-tight group-hover:text-brand-accent transition-colors duration-300">
+      {name}
+    </h3>
+    <p class="text-brand-text text-sm leading-relaxed max-w-[52ch]">{description}</p>
+    {tags.length > 0 && (
+      <div class="flex flex-wrap gap-1.5 pt-1">
+        {tags.map((tag) => (
+          <span class="px-2 py-0.5 rounded-full text-[11px] text-brand-muted ring-1 ring-black/[0.07] bg-brand-surface2 font-medium">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+  </div>
+
+  <div class="pt-0.5 text-brand-border group-hover:text-brand-accent transition-all duration-400 ease-spring group-hover:translate-x-1">
+    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+    </svg>
+  </div>
+</a>

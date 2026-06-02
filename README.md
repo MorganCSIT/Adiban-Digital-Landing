@@ -1,60 +1,68 @@
-# Adiban Digital — Marketing Website
+# Adiban Digital Marketing Website
 
-Production-ready marketing site built with **Astro 4**, **Tailwind CSS v3**, and **TypeScript**.
+Production-ready marketing site for Adiban Digital, built with Astro 4, Tailwind CSS v3, and TypeScript.
 
-## Getting started
+## Getting Started
 
 ```bash
 npm install
-npm run dev       # dev server at localhost:4321
-npm run build     # production build → dist/
-npm run preview   # preview the production build locally
+npm run dev
+npm run build
+npm run preview
 ```
 
-## Publishing a blog post
+The local dev server defaults to `http://localhost:4321`.
 
-1. Create a new `.md` file in `src/content/blog/` — use `BLOG_TEMPLATE.md` in the root as your starting point.
-2. Fill in the frontmatter (title, description, pubDate, category, readTime).
-3. Write your post content in Markdown below the frontmatter.
-4. Commit and push to `main`.
-5. Vercel or Netlify auto-deploys in ~30 seconds.
+## Business Details
 
-The new post will automatically appear on `/blog`, the homepage blog preview, and the sitemap.
+Primary site details live in `src/config/site.ts`.
 
-## Project structure
+- Email: `adibandigital@gmail.com`
+- WhatsApp: `+66 81 085 1211`
+- Address: `7/7 Moo 8, Aoyon Khaokad, T. Wichit, A. Muang Phuket 83000, Thailand`
 
-```
-src/
-├── components/       # Reusable Astro components
-├── content/
-│   ├── config.ts     # Content Collection schema
-│   └── blog/         # Blog posts (.md files)
-├── layouts/
-│   ├── BaseLayout.astro   # HTML shell + SEO meta tags
-│   └── BlogLayout.astro   # Blog post wrapper
-└── pages/
-    ├── index.astro
-    ├── services.astro
-    ├── case-studies.astro
-    ├── contact.astro
-    ├── blog/
-    │   ├── index.astro
-    │   └── [...slug].astro
-    └── sitemap.xml.ts
+## Domain Configuration
+
+Set `PUBLIC_SITE_URL` in the deployment environment when the final domain is active.
+
+Example:
+
+```bash
+PUBLIC_SITE_URL=https://adiban.digital
 ```
 
-## Customise before launch
+This value feeds Astro canonical URLs, Open Graph URLs, `robots.txt`, and the sitemap.
 
-- [ ] Replace `hello@adiban.digital` with your real email (search the codebase)
-- [ ] Update the WhatsApp number in `Footer.astro` and `contact.astro`
-- [ ] Update the LinkedIn URL in `Footer.astro`
-- [ ] Replace the `site` URL in `astro.config.mjs` if your domain differs
-- [ ] Add real client logos/photos to case studies
-- [ ] Connect a form backend (Netlify Forms is pre-wired — just deploy to Netlify)
+## Contact Form
+
+The contact form posts to FormSubmit using `adibandigital@gmail.com`, so it works on static hosts such as Vercel and Netlify without a custom backend.
+
+On the first live submission, FormSubmit may send a confirmation email to activate the address. Complete that once, then future enquiries will arrive by email.
 
 ## Deployment
 
-**Netlify (recommended for forms):** Connect your GitHub repo in the Netlify dashboard. `netlify.toml` handles build config. Netlify Forms will capture contact form submissions automatically.
+Both Vercel and Netlify can build this project.
 
-**Vercel:** Connect your GitHub repo. `vercel.json` handles build config. You'll need a separate form backend (e.g. Formspree, Resend) since Vercel doesn't provide native form handling.
-# Adiban-Digital-Landing
+Build command:
+
+```bash
+npm run build
+```
+
+Output directory:
+
+```bash
+dist
+```
+
+Do not commit generated folders such as `dist`, `.astro`, `.vercel`, or `node_modules`; they are ignored by `.gitignore`.
+
+## Publishing a Blog Post
+
+1. Create a new `.md` file in `src/content/blog/`.
+2. Use `BLOG_TEMPLATE.md` as a starting point.
+3. Fill in the frontmatter: `title`, `description`, `pubDate`, `category`, and `readTime`.
+4. Write the post content in Markdown.
+5. Build locally before deploying.
+
+The post appears on `/blog`, the homepage blog preview, and the sitemap.

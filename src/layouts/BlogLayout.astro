@@ -1,0 +1,118 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  category: string;
+  readTime: string;
+  author?: string;
+  ogImage?: string;
+}
+
+const {
+  title, description, pubDate, category, readTime,
+  author = 'Adiban Digital', ogImage,
+} = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric', month: 'long', year: 'numeric',
+}).format(pubDate);
+---
+
+<BaseLayout title={`${title} | Adiban Digital`} description={description} ogImage={ogImage}>
+  <Nav />
+
+  <main class="pt-32 pb-32 px-4">
+    <div class="max-w-3xl mx-auto">
+
+      <!-- Back -->
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-2 text-sm text-brand-muted hover:text-brand-heading transition-colors duration-200 mb-10 group"
+      >
+        <svg class="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Back to Blog
+      </a>
+
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="px-2.5 py-1 text-[11px] font-medium rounded-full bg-brand-accent-subtle text-brand-accent ring-1 ring-brand-accent/20">
+            {category}
+          </span>
+          <span class="text-sm text-brand-muted">{readTime}</span>
+        </div>
+
+        <h1 class="font-heading font-bold text-3xl md:text-4xl text-brand-heading tracking-tight leading-tight mb-5">
+          {title}
+        </h1>
+
+        <p class="text-lg text-brand-text leading-relaxed mb-8">
+          {description}
+        </p>
+
+        <div class="flex items-center gap-3 pt-6 border-t border-brand-border">
+          <div class="p-[2px] rounded-full bg-black/[0.04] ring-1 ring-black/[0.07]">
+            <div class="w-9 h-9 rounded-full bg-brand-surface2 flex items-center justify-center">
+              <span class="text-[10px] font-semibold text-brand-text">AD</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-brand-heading">{author}</p>
+            <p class="text-xs text-brand-muted">{formattedDate}</p>
+          </div>
+        </div>
+      </header>
+
+      <!-- Body -->
+      <article class="prose prose-lg max-w-none
+        prose-headings:font-heading prose-headings:font-bold prose-headings:tracking-tight
+        prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+        prose-h3:text-xl prose-h3:mt-7
+        prose-p:text-brand-text prose-p:leading-relaxed
+        prose-a:text-brand-accent prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-brand-heading
+        prose-ul:text-brand-text
+        prose-blockquote:border-l-brand-accent prose-blockquote:text-brand-text prose-blockquote:not-italic
+        prose-code:text-brand-accent prose-code:bg-brand-surface2 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-normal
+        prose-pre:bg-brand-surface2 prose-pre:border prose-pre:border-brand-border prose-pre:rounded-2xl
+        prose-hr:border-brand-border
+        prose-li:marker:text-brand-accent
+      ">
+        <slot />
+      </article>
+
+      <!-- End CTA — double-bezel -->
+      <div class="mt-16 p-[3px] rounded-squircle bg-black/[0.03] ring-1 ring-black/[0.07]">
+        <div class="bg-white rounded-squircle-in shadow-inner-highlight p-8 text-center">
+          <p class="text-[10px] text-brand-muted uppercase tracking-[0.2em] font-medium mb-3">Want help implementing this?</p>
+          <h2 class="font-heading font-semibold text-2xl text-brand-heading tracking-tight mb-3">
+            Book a free strategy call
+          </h2>
+          <p class="text-brand-text text-sm mb-6 max-w-sm mx-auto">
+            We'll review your current setup and show you exactly what's possible in 30 minutes.
+          </p>
+          <a
+            href="/contact"
+            class="group inline-flex items-center justify-between pl-6 pr-1.5 py-2 rounded-full bg-brand-heading text-white font-medium text-sm hover:bg-brand-accent transition-all duration-[600ms] ease-spring shadow-soft-md hover:shadow-accent-glow active:scale-[0.99]"
+          >
+            Book a Free Call
+            <span class="ml-3 w-8 h-8 rounded-full bg-white/15 flex items-center justify-center transition-all duration-300 ease-spring group-hover:bg-white/20 group-hover:translate-x-0.5">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

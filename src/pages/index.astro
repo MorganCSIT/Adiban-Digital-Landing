@@ -1,0 +1,260 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Footer from '../components/Footer.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import BlogCard from '../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const latestPosts = allPosts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const services = [
+  {
+    number: '01',
+    name: 'AI Chatbot & Automation',
+    description: 'Qualify leads, answer questions, and book appointments around the clock without adding manual admin.',
+    tags: ['Lead qualification', 'WhatsApp', 'AI support'],
+  },
+  {
+    number: '02',
+    name: 'Business Intelligence Dashboards',
+    description: 'Live KPI dashboards that connect your accounting, CRM, and operations data into one source of truth.',
+    tags: ['Power BI', 'Metabase', 'Real-time'],
+  },
+  {
+    number: '03',
+    name: 'Website Redesign & CRO',
+    description: 'Conversion-focused redesigns built around your actual offers, traffic, and customer journey.',
+    tags: ['Astro', 'SEO', 'Core Web Vitals'],
+  },
+  {
+    number: '04',
+    name: 'Internal Tools & Portals',
+    description: 'Custom admin panels and client portals that fit the way your team actually works.',
+    tags: ['Custom builds', 'Role-based access', 'API-connected'],
+  },
+  {
+    number: '05',
+    name: 'Systems & API Integration',
+    description: 'Connect your CRM, accounting, e-commerce, and marketing tools so data stops living in silos.',
+    tags: ['REST API', 'Webhooks', 'Zapier/Make'],
+  },
+  {
+    number: '06',
+    name: 'Digital Strategy Consulting',
+    description: 'Structured audits and practical roadmaps so you invest in the work most likely to move revenue.',
+    tags: ['Audit', 'Roadmap', 'ROI-first'],
+  },
+];
+
+const trustSignals = [
+  {
+    number: '01',
+    title: 'Clear scope before code',
+    description: 'We define the business goal, integrations, timeline, and acceptance criteria before development starts.',
+  },
+  {
+    number: '02',
+    title: 'Practical technology choices',
+    description: 'We use stable tools that fit your budget and maintenance needs instead of chasing complexity.',
+  },
+  {
+    number: '03',
+    title: 'Built for handoff',
+    description: 'You receive a deployable system, basic documentation, and direct support after launch.',
+  },
+];
+---
+
+<BaseLayout
+  title="Adiban Digital | IT Systems, AI & Web in Phuket"
+  description="Adiban Digital is a Phuket-based IT company building AI automation, BI dashboards, internal tools, and conversion-focused websites."
+>
+  <Nav />
+  <Hero />
+
+  <section class="pt-20 pb-32 px-4">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8 mb-14 items-end" data-reveal>
+        <div>
+          <p class="text-[10px] font-medium text-brand-accent uppercase tracking-[0.2em] mb-3">What we do</p>
+          <h2 class="font-heading font-bold text-3xl lg:text-4xl text-brand-heading leading-tight">
+            Six ways we<br />strengthen your business
+          </h2>
+        </div>
+        <p class="text-brand-text leading-relaxed max-w-[55ch] lg:pb-1">
+          Every engagement is scoped around a specific operational or revenue problem. The goal is simple: useful software that keeps working after launch.
+        </p>
+      </div>
+
+      <div class="border-y border-brand-border divide-y divide-brand-border" data-reveal data-delay="1">
+        {services.map((s) => (
+          <ServiceCard {...s} />
+        ))}
+      </div>
+
+      <div class="mt-10" data-reveal data-delay="2">
+        <a
+          href="/services"
+          class="group inline-flex items-center justify-between pl-5 pr-1.5 py-2 rounded-full bg-brand-heading text-white font-medium text-sm hover:bg-brand-accent transition-all duration-[600ms] ease-spring shadow-soft-md hover:shadow-accent-glow active:scale-[0.99]"
+        >
+          See full service details
+          <span class="ml-3 w-7 h-7 rounded-full bg-white/15 flex items-center justify-center transition-all duration-300 ease-spring group-hover:bg-white/20 group-hover:translate-x-0.5">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-32 px-4 bg-brand-surface1 border-y border-brand-border">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_3fr] gap-10 items-start">
+
+        <div data-reveal>
+          <p class="text-[10px] font-medium text-brand-accent uppercase tracking-[0.2em] mb-3">Process</p>
+          <h2 class="font-heading font-bold text-3xl text-brand-heading leading-tight">
+            First call to<br />live system
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" data-reveal data-delay="1">
+          {[
+            { n: '01', title: 'Discovery Call', desc: 'We learn your goals, bottlenecks, tools, and constraints.' },
+            { n: '02', title: 'Audit & Scope', desc: 'We map the current setup and send a fixed-price scope.' },
+            { n: '03', title: 'Build & Review', desc: 'Short build cycles with clear checkpoints and visible progress.' },
+            { n: '04', title: 'Launch & Support', desc: 'We deploy, test, document, and support the first live period.' },
+          ].map(({ n, title, desc }) => (
+            <div class="p-[3px] rounded-squircle bg-black/[0.03] ring-1 ring-black/[0.07]">
+              <div class="bg-white rounded-squircle-in shadow-inner-highlight p-6 h-full">
+                <span class="font-mono text-[10px] text-brand-muted block mb-4 tracking-[0.12em]">{n}</span>
+                <h3 class="font-heading font-semibold text-brand-heading text-sm mb-2">{title}</h3>
+                <p class="text-brand-text text-sm leading-relaxed">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-32 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 mb-12 items-end" data-reveal>
+        <div>
+          <p class="text-[10px] font-medium text-brand-accent uppercase tracking-[0.2em] mb-3">Trust</p>
+          <h2 class="font-heading font-bold text-3xl text-brand-heading leading-tight">
+            Straightforward,<br />useful, maintainable
+          </h2>
+        </div>
+        <p class="text-brand-text leading-relaxed max-w-[55ch] lg:pb-1">
+          We are keeping the site honest at launch: no invented client names, no fake logos, and no numbers we cannot stand behind.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5" data-reveal data-delay="1">
+        {trustSignals.map((item) => (
+          <div class="p-[3px] rounded-squircle bg-black/[0.03] ring-1 ring-black/[0.07] hover:ring-black/[0.12] hover:shadow-soft-lg transition-all duration-[600ms] ease-spring">
+            <div class="bg-white rounded-squircle-in shadow-inner-highlight p-7 h-full">
+              <span class="font-mono text-[10px] text-brand-muted block mb-5 tracking-[0.12em]">{item.number}</span>
+              <h3 class="font-heading font-semibold text-brand-heading text-lg mb-3">{item.title}</h3>
+              <p class="text-brand-text text-sm leading-relaxed">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-32 px-4 bg-brand-surface1 border-y border-brand-border">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12" data-reveal>
+        <div>
+          <p class="text-[10px] font-medium text-brand-accent uppercase tracking-[0.2em] mb-3">From the blog</p>
+          <h2 class="font-heading font-bold text-3xl text-brand-heading">Insights worth reading</h2>
+        </div>
+        <a
+          href="/blog"
+          class="group inline-flex items-center justify-between pl-4 pr-1.5 py-1.5 rounded-full bg-brand-heading text-white font-medium text-xs hover:bg-brand-accent transition-all duration-[600ms] ease-spring shadow-soft-sm hover:shadow-accent-glow active:scale-[0.99] shrink-0"
+        >
+          All posts
+          <span class="ml-2.5 w-6 h-6 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-white/20 group-hover:translate-x-0.5 transition-all duration-300 ease-spring">
+            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+
+      {latestPosts.length > 0 && (
+        <div class="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-5" data-reveal data-delay="1">
+          <BlogCard
+            title={latestPosts[0].data.title}
+            description={latestPosts[0].data.description}
+            pubDate={latestPosts[0].data.pubDate}
+            category={latestPosts[0].data.category}
+            readTime={latestPosts[0].data.readTime}
+            slug={latestPosts[0].slug}
+            featured={true}
+          />
+          <div class="flex flex-col gap-5">
+            {latestPosts.slice(1).map((post) => (
+              <BlogCard
+                title={post.data.title}
+                description={post.data.description}
+                pubDate={post.data.pubDate}
+                category={post.data.category}
+                readTime={post.data.readTime}
+                slug={post.slug}
+                featured={false}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="py-32 px-4">
+    <div class="max-w-7xl mx-auto" data-reveal>
+      <div class="p-[3px] rounded-squircle bg-black/[0.04] ring-1 ring-black/[0.08]">
+        <div class="rounded-squircle-in bg-brand-heading relative overflow-hidden">
+          <div class="absolute inset-0 opacity-[0.055]" style="background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px); background-size: 48px 48px;" aria-hidden="true"></div>
+          <div class="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 items-center p-10 lg:p-14">
+            <div>
+              <p class="text-[10px] font-medium text-white/50 uppercase tracking-[0.2em] mb-3">Ready?</p>
+              <h2 class="font-heading font-bold text-3xl lg:text-4xl text-white leading-tight">
+                Ready to build something useful?
+              </h2>
+              <p class="text-white/60 mt-3 text-base max-w-[52ch] leading-relaxed">
+                Book a free 30-minute strategy call. We will identify the highest-leverage digital opportunity and tell you honestly what it would take to capture it.
+              </p>
+            </div>
+            <div class="flex-shrink-0">
+              <a
+                href="/contact"
+                class="group inline-flex items-center justify-between pl-6 pr-1.5 py-2 rounded-full bg-white text-brand-heading font-medium text-sm hover:bg-brand-accent hover:text-white transition-all duration-[600ms] ease-spring shadow-soft-md active:scale-[0.99]"
+              >
+                Book a Free Call
+                <span class="ml-3 w-8 h-8 rounded-full bg-brand-heading/10 flex items-center justify-center transition-all duration-300 ease-spring group-hover:bg-white/20 group-hover:translate-x-0.5">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
