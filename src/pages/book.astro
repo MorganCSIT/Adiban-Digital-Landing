@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { siteConfig } from '../config/site';
+
+const hasExternalBooking = Boolean(siteConfig.bookingUrl);
+---
+
+<BaseLayout
+  title="Book a Free 30-Minute Call | Adiban Digital"
+  description="Book a free 30-minute strategy call with Adiban Digital to discuss one business bottleneck, automation opportunity, website issue, or internal system problem."
+>
+  <Nav />
+
+  <main class="pt-32 pb-32 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-12" data-reveal>
+        <p class="text-[10px] font-medium text-brand-accent uppercase tracking-[0.2em] mb-3">Free 30-minute call</p>
+        <h1 class="font-heading font-bold text-4xl lg:text-6xl text-brand-heading tracking-tight leading-[1.02] mb-5">
+          Bring one bottleneck.<br />Leave with a clearer next step.
+        </h1>
+        <p class="text-brand-text text-lg leading-relaxed max-w-[62ch] mx-auto">
+          Tell me what is slowing your business down — leads, reporting, repetitive admin, disconnected systems, or a website that is not converting. We will use the call to identify the simplest useful next move.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6 items-start" data-reveal data-delay="1">
+        <div class="space-y-4">
+          {[
+            ['01', 'No sales presentation', 'The call is for understanding the problem and deciding whether there is a practical fit.'],
+            ['02', 'Concrete next step', 'You should leave knowing what I would do first, what can wait, and what is probably not worth building.'],
+            ['03', 'Remote-friendly', 'Based in Phuket and available for Thailand and international clients.'],
+          ].map(([n, title, desc]) => (
+            <div class="p-[3px] rounded-squircle bg-black/[0.03] ring-1 ring-black/[0.07]">
+              <div class="bg-white rounded-squircle-in shadow-inner-highlight p-6">
+                <span class="font-mono text-[10px] text-brand-muted tracking-[0.12em] block mb-3">{n}</span>
+                <h2 class="font-heading font-semibold text-brand-heading mb-2">{title}</h2>
+                <p class="text-sm text-brand-text leading-relaxed">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="p-[3px] rounded-squircle bg-black/[0.03] ring-1 ring-black/[0.07]">
+          <div class="bg-white rounded-squircle-in shadow-inner-highlight p-8 lg:p-10">
+            {hasExternalBooking ? (
+              <>
+                <p class="text-[10px] font-medium text-brand-accent uppercase tracking-[0.18em] mb-3">Choose a time</p>
+                <h2 class="font-heading font-semibold text-2xl text-brand-heading mb-3">Open the live calendar</h2>
+                <p class="text-brand-text text-sm leading-relaxed mb-6">
+                  Pick the time that works best for you. The calendar will show current availability.
+                </p>
+                <a
+                  href={siteConfig.bookingUrl}
+                  class="group w-full flex items-center justify-between pl-6 pr-1.5 py-2 rounded-full bg-brand-heading text-white font-medium text-sm hover:bg-brand-accent transition-all duration-600 ease-spring shadow-soft-md hover:shadow-accent-glow active:scale-[0.99]"
+                >
+                  View Available Times
+                  <span class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center transition-all duration-300 ease-spring group-hover:bg-white/20 group-hover:translate-x-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </span>
+                </a>
+                <p class="text-xs text-brand-muted text-center mt-4">Prefer to explain the situation first? <a href="/contact" class="text-brand-accent hover:underline">Send a message instead.</a></p>
+              </>
+            ) : (
+              <>
+                <p class="text-[10px] font-medium text-brand-accent uppercase tracking-[0.18em] mb-3">Request a call</p>
+                <h2 class="font-heading font-semibold text-2xl text-brand-heading mb-3">Tell me what you want to improve</h2>
+                <p class="text-brand-text text-sm leading-relaxed mb-6">
+                  A live calendar is not connected yet, so send a short request and I will reply with available times.
+                </p>
+                <ContactForm />
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
