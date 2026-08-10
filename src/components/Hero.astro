@@ -1,11 +1,10 @@
 ---
 import { siteConfig } from '../config/site';
 
-const capabilityTags = ['Web apps', 'AI workflows', 'BI dashboards', 'Internal tools'];
+const outcomeTags = ['Automate repetitive work', 'Fix broken workflows', 'Turn ideas into working tools'];
 ---
 
-<section class="flex items-center pt-28 pb-12 px-4 relative overflow-hidden">
-
+<section class="flex items-center pt-28 pb-16 px-4 relative overflow-hidden">
   <div class="absolute inset-0 bg-grid-fine bg-grid-fine opacity-100 pointer-events-none" aria-hidden="true"></div>
 
   <div
@@ -15,10 +14,8 @@ const capabilityTags = ['Web apps', 'AI workflows', 'BI dashboards', 'Internal t
   ></div>
 
   <div class="relative z-10 max-w-7xl mx-auto w-full">
-    <div class="grid grid-cols-1 items-center">
-
+    <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 items-end">
       <div class="space-y-8" data-reveal>
-
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white ring-1 ring-black/[0.07] shadow-soft-xs text-[10px] uppercase tracking-[0.18em] font-medium text-brand-muted">
           <span class="relative flex h-1.5 w-1.5">
             <span class="animate-pulse-dot absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -30,40 +27,36 @@ const capabilityTags = ['Web apps', 'AI workflows', 'BI dashboards', 'Internal t
         <div>
           <h1 class="font-heading font-bold leading-[0.95] tracking-[-0.04em] text-brand-heading"
               style="font-size: clamp(3rem, 7vw, 6rem);">
-            We build the<br />
-            systems behind<br />
-            <span class="text-brand-accent">smarter work.</span>
+            Your business has<br />
+            a bottleneck.<br />
+            <span class="text-brand-accent">Let's fix it.</span>
           </h1>
         </div>
 
-        <p class="text-lg text-brand-text leading-relaxed max-w-[54ch]">
-          Adiban Digital is a Phuket-based IT company building dashboards, AI automation,
-          internal tools, and conversion-focused websites for growing businesses.
+        <p class="text-lg text-brand-text leading-relaxed max-w-[58ch]">
+          I help businesses use AI, automation, dashboards, websites, and custom software to remove repetitive work, improve customer journeys, and build systems that actually get used.
         </p>
 
         <div class="flex flex-wrap items-center gap-3">
           <a
-            href="/contact"
+            href={siteConfig.bookingUrl}
             class="group inline-flex items-center gap-1 pl-5 pr-1.5 py-2 rounded-full bg-brand-heading text-white font-medium text-sm hover:bg-brand-accent transition-all duration-600 ease-spring shadow-soft-md hover:shadow-accent-glow active:scale-[0.97]"
           >
-            Book Free Consultation
+            Book a Free 30-Minute Call
             <span class="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center ml-1 transition-all duration-300 ease-spring group-hover:bg-white/20 group-hover:translate-x-0.5 group-hover:-translate-y-[1px]">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
               </svg>
             </span>
           </a>
-
-          <a
-            href="/services"
-            class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white text-brand-heading font-medium text-sm ring-1 ring-black/[0.08] shadow-soft-xs hover:shadow-soft-md hover:ring-black/[0.14] transition-all duration-500 ease-spring active:scale-[0.97]"
-          >
-            View Services
-          </a>
         </div>
 
+        <p class="text-xs text-brand-muted -mt-4">
+          No sales presentation. Bring one problem or idea and leave with a practical next step.
+        </p>
+
         <div class="flex flex-wrap items-center gap-2 pt-1">
-          {capabilityTags.map((tag) => (
+          {outcomeTags.map((tag) => (
             <span class="px-3 py-1 rounded-full bg-white ring-1 ring-black/[0.07] shadow-soft-xs text-xs font-medium text-brand-muted">
               {tag}
             </span>
@@ -71,6 +64,28 @@ const capabilityTags = ['Web apps', 'AI workflows', 'BI dashboards', 'Internal t
         </div>
       </div>
 
+      <div class="hidden lg:block" data-reveal data-delay="1">
+        <div class="p-[3px] rounded-squircle bg-black/[0.03] ring-1 ring-black/[0.07]">
+          <div class="bg-white rounded-squircle-in shadow-inner-highlight p-7">
+            <p class="text-[10px] font-medium text-brand-accent uppercase tracking-[0.2em] mb-5">What we can cover in 30 minutes</p>
+            <ol class="space-y-4">
+              {[
+                'Where time, leads, or money are leaking from the current process',
+                'What can realistically be automated or improved',
+                'The simplest useful first version to build',
+                'Whether I am the right person to help you implement it',
+              ].map((item, i) => (
+                <li class="flex items-start gap-3">
+                  <span class="flex-shrink-0 w-5 h-5 rounded-full bg-brand-accent-subtle ring-1 ring-brand-accent/20 text-brand-accent text-[10px] font-semibold flex items-center justify-center mt-0.5">
+                    {i + 1}
+                  </span>
+                  <span class="text-brand-text text-sm leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
