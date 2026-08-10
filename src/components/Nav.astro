@@ -1,20 +1,20 @@
 ---
+import { siteConfig } from '../config/site';
+
 const navLinks = [
-  { href: '/services',     label: 'Services' },
-  { href: '/blog',         label: 'Blog' },
-  { href: '/projects',     label: 'Projects' },
-  { href: '/contact',      label: 'Contact' },
+  { href: '/services', label: 'Services' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/blog', label: 'Insights' },
+  { href: '/contact', label: 'Contact' },
 ];
 const currentPath = Astro.url.pathname;
 ---
 
-<!-- Soft-skill: Floating glass pill — NOT edge-to-edge sticky bar -->
 <header class="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-5">
   <nav
     id="navbar-pill"
     class="w-full max-w-2xl flex items-center justify-between gap-4 px-3 py-2 rounded-full bg-white/[0.97] ring-1 ring-black/[0.07] shadow-soft-md transition-shadow duration-700 ease-spring"
   >
-    <!-- Logo -->
     <a href="/" class="flex items-center gap-2 pl-1 group flex-shrink-0">
       <div class="w-7 h-7 rounded-full bg-brand-heading flex items-center justify-center transition-all duration-600 ease-spring group-hover:bg-brand-accent">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -26,7 +26,6 @@ const currentPath = Astro.url.pathname;
       </span>
     </a>
 
-    <!-- Desktop links — centered -->
     <div class="hidden md:flex items-center gap-6">
       {navLinks.map(({ href, label }) => (
         <a
@@ -43,14 +42,12 @@ const currentPath = Astro.url.pathname;
       ))}
     </div>
 
-    <!-- CTA — pill button-in-button pattern -->
     <div class="flex items-center gap-2">
       <a
-        href="/contact"
+        href={siteConfig.bookingUrl}
         class="hidden md:inline-flex items-center gap-1 pl-4 pr-1.5 py-1.5 rounded-full bg-brand-heading text-white text-sm font-medium hover:bg-brand-accent transition-all duration-600 ease-spring active:scale-[0.97] group"
       >
-        Book a Call
-        <!-- Button-in-Button trailing icon (soft-skill Section 4B) -->
+        Book 30 Min
         <span class="w-6 h-6 rounded-full bg-white/15 flex items-center justify-center ml-1 transition-all duration-300 ease-spring group-hover:bg-white/20 group-hover:translate-x-0.5 group-hover:-translate-y-[1px]">
           <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
@@ -58,7 +55,6 @@ const currentPath = Astro.url.pathname;
         </span>
       </a>
 
-      <!-- Mobile hamburger — morphs into X -->
       <button
         id="menu-btn"
         aria-label="Toggle menu"
@@ -71,7 +67,6 @@ const currentPath = Astro.url.pathname;
   </nav>
 </header>
 
-<!-- Mobile overlay — screen-filling glass modal with stagger reveal -->
 <div
   id="mobile-overlay"
   class="fixed inset-0 z-40 flex flex-col justify-center px-6 bg-white/92 backdrop-blur-2xl pointer-events-none opacity-0 transition-all duration-600 ease-spring"
@@ -89,10 +84,10 @@ const currentPath = Astro.url.pathname;
     ))}
     <div class="pt-6 mobile-nav-link translate-y-8 opacity-0 transition-all duration-700 ease-spring" style="transition-delay: 340ms">
       <a
-        href="/contact"
+        href={siteConfig.bookingUrl}
         class="inline-flex items-center gap-1 pl-5 pr-1.5 py-2 rounded-full bg-brand-heading text-white font-medium hover:bg-brand-accent transition-all duration-500 ease-spring group"
       >
-        Book a Call
+        Book a Free 30-Minute Call
         <span class="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center ml-1 transition-all duration-300 group-hover:translate-x-0.5">
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
@@ -104,11 +99,11 @@ const currentPath = Astro.url.pathname;
 </div>
 
 <script>
-  const btn     = document.getElementById('menu-btn')!;
+  const btn = document.getElementById('menu-btn')!;
   const overlay = document.getElementById('mobile-overlay')!;
-  const line1   = document.getElementById('line-1')!;
-  const line2   = document.getElementById('line-2')!;
-  const links   = document.querySelectorAll('.mobile-nav-link');
+  const line1 = document.getElementById('line-1')!;
+  const line2 = document.getElementById('line-2')!;
+  const links = document.querySelectorAll('.mobile-nav-link');
   let open = false;
 
   btn.addEventListener('click', () => {
@@ -117,10 +112,8 @@ const currentPath = Astro.url.pathname;
       overlay.classList.remove('opacity-0', 'pointer-events-none');
       overlay.classList.add('opacity-100');
       overlay.setAttribute('aria-hidden', 'false');
-      // Hamburger → X morph
       line1.style.transform = 'translateY(5px) rotate(45deg)';
       line2.style.transform = 'translateY(-5px) rotate(-45deg)';
-      // Stagger reveal nav items
       links.forEach(el => {
         el.classList.remove('translate-y-8', 'opacity-0');
         el.classList.add('translate-y-0', 'opacity-100');
@@ -138,6 +131,5 @@ const currentPath = Astro.url.pathname;
     }
   });
 
-  // Close on nav link click
   links.forEach(el => el.addEventListener('click', () => btn.click()));
 </script>
