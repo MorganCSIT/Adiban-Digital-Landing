@@ -10,7 +10,7 @@ module.exports = {
           surface2:       '#F2F2F2',
           heading:        '#0A0A0A',   // near-black, never pure
           text:           '#525252',   // zinc-600
-          muted:          '#A3A3A3',   // zinc-400
+          muted:          '#737373',   // zinc-500; readable on light backgrounds
           accent:         '#0077A8',   // desaturated teal
           'accent-subtle':'#EAF5FB',
           border:         '#E5E5E5',   // zinc-200

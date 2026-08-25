@@ -46,22 +46,22 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
     />
   </head>
   <style is:global>
-    /* Scroll-reveal: fade-up (no blur — keeps compositing on GPU only) */
-    [data-reveal] {
+    /* Content stays visible unless JS confirms reveal animations are available. */
+    .js [data-reveal] {
       opacity: 0;
       transform: translateY(20px);
       transition:
         opacity 0.6s cubic-bezier(0.32, 0.72, 0, 1),
         transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
     }
-    [data-reveal].revealed {
+    .js [data-reveal].revealed {
       opacity: 1;
       transform: translateY(0);
     }
-    [data-reveal][data-delay="1"] { transition-delay: 80ms; }
-    [data-reveal][data-delay="2"] { transition-delay: 160ms; }
-    [data-reveal][data-delay="3"] { transition-delay: 240ms; }
-    [data-reveal][data-delay="4"] { transition-delay: 320ms; }
+    .js [data-reveal][data-delay="1"] { transition-delay: 80ms; }
+    .js [data-reveal][data-delay="2"] { transition-delay: 160ms; }
+    .js [data-reveal][data-delay="3"] { transition-delay: 240ms; }
+    .js [data-reveal][data-delay="4"] { transition-delay: 320ms; }
 
     /* Pulse-dot (used in footer/nav status) */
     @keyframes pulse-dot {
@@ -69,6 +69,24 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
       50% { transform: scale(1.8); opacity: 0; }
     }
     .animate-pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+    :focus-visible {
+      outline: 3px solid rgba(0, 119, 168, 0.45);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .js [data-reveal] {
+        opacity: 1;
+        transform: none;
+      }
+    }
   </style>
 
   <body class="bg-brand-bg text-brand-text font-body antialiased selection:bg-brand-accent/15 selection:text-brand-accent">
@@ -83,19 +101,25 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
     <slot />
 
     <script>
-      // Blur-fade-up scroll reveal
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add('revealed');
-              io.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0.08, rootMargin: '0px 0px -32px 0px' }
-      );
-      document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+      document.documentElement.classList.add('js');
+
+      const revealElements = document.querySelectorAll('[data-reveal]');
+      if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        revealElements.forEach((el) => el.classList.add('revealed'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: '0px 0px -32px 0px' }
+        );
+        revealElements.forEach((el) => io.observe(el));
+      }
     </script>
   </body>
 </html>

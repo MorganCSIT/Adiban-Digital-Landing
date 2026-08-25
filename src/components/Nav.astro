@@ -1,5 +1,5 @@
 ---
-import { siteConfig } from '../config/site';
+import { bookingHref } from '../config/site';
 
 const navLinks = [
   { href: '/services', label: 'Services' },
@@ -36,6 +36,7 @@ const currentPath = Astro.url.pathname;
               ? 'text-brand-heading font-medium'
               : 'text-brand-muted hover:text-brand-heading font-normal',
           ]}
+          aria-current={currentPath.startsWith(href) ? 'page' : undefined}
         >
           {label}
         </a>
@@ -44,7 +45,7 @@ const currentPath = Astro.url.pathname;
 
     <div class="flex items-center gap-2">
       <a
-        href={siteConfig.bookingUrl}
+        href={bookingHref}
         class="hidden md:inline-flex items-center gap-1 pl-4 pr-1.5 py-1.5 rounded-full bg-brand-heading text-white text-sm font-medium hover:bg-brand-accent transition-all duration-600 ease-spring active:scale-[0.97] group"
       >
         Book 30 Min
@@ -57,7 +58,9 @@ const currentPath = Astro.url.pathname;
 
       <button
         id="menu-btn"
-        aria-label="Toggle menu"
+        aria-label="Open menu"
+        aria-controls="mobile-overlay"
+        aria-expanded="false"
         class="md:hidden w-8 h-8 rounded-full flex flex-col items-center justify-center gap-1.5 hover:bg-black/5 transition-all duration-300"
       >
         <span id="line-1" class="block w-4 h-[1.5px] bg-brand-heading rounded-full transition-all duration-500 ease-spring origin-center"></span>
@@ -84,7 +87,7 @@ const currentPath = Astro.url.pathname;
     ))}
     <div class="pt-6 mobile-nav-link translate-y-8 opacity-0 transition-all duration-700 ease-spring" style="transition-delay: 340ms">
       <a
-        href={siteConfig.bookingUrl}
+        href={bookingHref}
         class="inline-flex items-center gap-1 pl-5 pr-1.5 py-2 rounded-full bg-brand-heading text-white font-medium hover:bg-brand-accent transition-all duration-500 ease-spring group"
       >
         Book a Free 30-Minute Call
@@ -106,30 +109,44 @@ const currentPath = Astro.url.pathname;
   const links = document.querySelectorAll('.mobile-nav-link');
   let open = false;
 
-  btn.addEventListener('click', () => {
-    open = !open;
+  const setMenu = (nextOpen: boolean) => {
+    open = nextOpen;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.classList.toggle('overflow-hidden', open);
+
     if (open) {
       overlay.classList.remove('opacity-0', 'pointer-events-none');
       overlay.classList.add('opacity-100');
       overlay.setAttribute('aria-hidden', 'false');
       line1.style.transform = 'translateY(5px) rotate(45deg)';
       line2.style.transform = 'translateY(-5px) rotate(-45deg)';
-      links.forEach(el => {
+      links.forEach((el) => {
         el.classList.remove('translate-y-8', 'opacity-0');
         el.classList.add('translate-y-0', 'opacity-100');
       });
+      (overlay.querySelector('a') as HTMLElement | null)?.focus();
     } else {
       overlay.classList.add('opacity-0', 'pointer-events-none');
       overlay.classList.remove('opacity-100');
       overlay.setAttribute('aria-hidden', 'true');
       line1.style.transform = '';
       line2.style.transform = '';
-      links.forEach(el => {
+      links.forEach((el) => {
         el.classList.add('translate-y-8', 'opacity-0');
         el.classList.remove('translate-y-0', 'opacity-100');
       });
     }
+  };
+
+  btn.addEventListener('click', () => setMenu(!open));
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && open) {
+      setMenu(false);
+      btn.focus();
+    }
   });
 
-  links.forEach(el => el.addEventListener('click', () => btn.click()));
+  links.forEach((el) => el.addEventListener('click', () => setMenu(false)));
 </script>
